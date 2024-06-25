@@ -16,7 +16,7 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-10 col-md-8 col-lg-6">
                 <h3>Добавить продукт</h3>
-                <form action="{{ route('products.store') }}" method="post">
+                <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="name">Название</label>
@@ -29,6 +29,10 @@
                     <div class="form-group">
                         <label for="price">Цена</label>
                         <input type="text" class="form-control" id="price" name="price" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Изображение</label>
+                        <input type="file" class="form-control" id="image" name="image">
                     </div>
                     <br>
                     <button type="submit" class="btn btn-primary">Создать продукт</button>
