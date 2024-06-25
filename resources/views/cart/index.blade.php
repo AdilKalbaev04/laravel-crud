@@ -40,6 +40,7 @@
                                 <td>
                                     <form action="{{ route('cart.remove', $id) }}" method="post">
                                         @csrf
+                                        @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
                                     </form>
                                 </td>

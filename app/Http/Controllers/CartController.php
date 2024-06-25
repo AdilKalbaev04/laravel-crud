@@ -31,14 +31,17 @@ class CartController extends Controller
     }
 
     public function remove(Product $product)
-    {
-        $cart = session()->get('cart', []);
+{
+    $cart = session()->get('cart', []);
 
-        if (isset($cart[$product->id])) {
-            unset($cart[$product->id]);
-            session()->put('cart', $cart);
-        }
+    if (isset($cart[$product->id])) {
+        unset($cart[$product->id]); // Удаление товара из корзины
+        session()->put('cart', $cart); // Обновление сессии корзины
 
-        return redirect()->route('cart.index')->with('success', 'Product removed from cart!');
+        return redirect()->route('cart.index')->with('success', 'Товар удален из корзины!');
     }
+
+    return redirect()->route('cart.index')->with('error', 'Товар не найден в корзине!');
+}
+
 }

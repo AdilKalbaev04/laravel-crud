@@ -16,14 +16,13 @@
                         <a class="btn btn-primary" href="{{ route('products.create') }}">Add Product</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn btn-success" href="{{ route('cart.index') }}">Cart</a>
+                        <a class="btn btn-success" href="{{ route('cart.index') }}">Корзина</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- Карусель -->
     <div id="carouselExampleIndicators" class="carousel slide mt-4" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -52,11 +51,18 @@
     </div>
 
     <div class="container mt-5">
-        <div class="row">
+        <form id="searchForm" action="{{ route('products.index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" id="searchInput" name="query" class="form-control" placeholder="Поиск по названию товара">
+                <button type="submit" class="btn btn-outline-primary">Найти</button>
+            </div>
+        </form>
+
+        <div class="row" id="productList">
             @foreach ($products as $product)
                 <div class="col-sm-4 mb-3">
                     <div class="card h-100">
-                    <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}">
+                        <img src="{{ $product->image }}" class="card-img-top" alt="{{ $product->name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
@@ -76,5 +82,25 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A8fCgtSIsQltt+KY00Nv3G5r7bLeYem5vC3N0cpM5j7OcsgF1wtAby6pGFM90" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var query = document.getElementById('searchInput').value.trim().toLowerCase();
+
+            var productList = document.getElementById('productList').getElementsByClassName('col-sm-4');
+
+
+            for (var i = 0; i < productList.length; i++) {
+                var productName = productList[i].getElementsByClassName('card-title')[0].innerText.trim().toLowerCase();
+
+                if (productName.includes(query)) {
+                    productList[i].style.display = '';
+                } else {
+                    productList[i].style.display = 'none'; 
+                }
+            }
+        });
+    </script>
 </body>
 </html>
