@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\URL;
-
+use App\Http\Controllers\AboutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,4 +32,5 @@ Route::put('/posts/{post}', PostController::class .'@update')->name('posts.updat
 Route::delete('/posts/{post}', PostController::class .'@destroy')->name('posts.destroy');
 
 
-
+Route::view('/about', 'about.about');
+Route::get('/about', [AboutController::class, 'show']);
