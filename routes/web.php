@@ -1,15 +1,13 @@
 <?php
 
-// routes/web.php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AboutController;
 
 URL::forceScheme('http');
 
-// Маршруты для продуктов
 Route::get('/', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
 Route::post('/products', [ProductController::class, 'store'])->name('products.store');
@@ -20,3 +18,7 @@ Route::delete('/products/{product}', [ProductController::class, 'destroy'])->nam
 
 Route::view('/about', 'about.about');
 Route::get('/about', [AboutController::class, 'show']);
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::post('/cart/remove/{product}', [CartController::class, 'remove'])->name('cart.remove');

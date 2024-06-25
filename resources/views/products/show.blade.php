@@ -1,5 +1,3 @@
-<!-- resources/views/products/show.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
