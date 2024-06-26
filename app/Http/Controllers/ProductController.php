@@ -15,10 +15,6 @@ class ProductController extends Controller
         $products = Product::all();
         return view('products.index', compact('products'));
     }
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum')->except(['index', 'show']);
-    }
 
     public function create()
     {
