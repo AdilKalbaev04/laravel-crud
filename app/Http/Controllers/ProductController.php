@@ -30,7 +30,11 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $imagePath = $request->file('image')->store('images', 'public');
+        $imageName = time() . '_' . uniqid() . '.' . $request->image->extension();
+
+        $request->image->storeAs('public/images', $imageName);
+
+        $imagePath = 'storage/images/' . $imageName;
 
         $product = new Product();
         $product->name = $request->name;
@@ -41,6 +45,7 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Продукт добавлен');
     }
+
 
     public function show(Product $product)
     {
