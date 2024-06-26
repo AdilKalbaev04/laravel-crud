@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+
+    public function showRegisterForm()
+    {
+        return view('auth.register');
+    }
     public function register(Request $request)
     {
         $request->validate([
@@ -25,7 +30,13 @@ class AuthController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['token' => $token], 201);
+        return redirect()->route('products.index')->cookie('token', $token, 60*24*30);
+    }
+
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -42,13 +53,18 @@ class AuthController extends Controller
         $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['token' => $token], 200);
+        return redirect()->route('products.index')->cookie('token', $token, 60*24*30);
     }
+
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        if ($request->user()) {
+            $request->user()->tokens()->delete();
+        }
 
-        return response()->json(['message' => 'Вы успешно вышли'], 200);
+        return response()->json(['message' => 'Вы успешно вышли'], 200)->cookie('token', '', -1);
     }
+
 }
+

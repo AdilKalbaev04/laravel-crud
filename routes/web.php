@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AuthController;
 
 URL::forceScheme('http');
 
@@ -22,3 +23,9 @@ Route::delete('/cart/remove/{product}', [CartController::class, 'remove'])->name
 
 Route::view('/about', 'about.about');
 Route::get('/about', [AboutController::class, 'show']);
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

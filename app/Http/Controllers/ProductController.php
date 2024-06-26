@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -13,7 +15,6 @@ class ProductController extends Controller
         $products = Product::all();
         return view('products.index', compact('products'));
     }
-
     public function __construct()
     {
         $this->middleware('auth:sanctum')->except(['index', 'show']);
