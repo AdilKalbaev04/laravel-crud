@@ -5,7 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" rel="stylesheet">
     <title>Магазин</title>
+    <style>
+        .swiper-container {
+            width: 100%;
+            height: 400px;
+        }
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-warning">
@@ -36,31 +48,23 @@
     </div>
 </nav>
 
-<div id="carouselExampleIndicators" class="carousel slide mt-4" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://th.bing.com/th/id/R.1e7009d17162484005aecbe699b2da41?rik=kipVfF6CvYlMgg&pid=ImgRaw&r=0" class="d-block w-100" alt="...">
+<div class="swiper-container mt-4">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide">
+            <img src="https://th.bing.com/th/id/R.1e7009d17162484005aecbe699b2da41?rik=kipVfF6CvYlMgg&pid=ImgRaw&r=0" alt="Slide 1">
         </div>
-        <div class="carousel-item">
-            <img src="https://i.pinimg.com/originals/33/57/14/3357143e431a1b917712881e693719ca.jpg" class="d-block w-100" alt="...">
+        <div class="swiper-slide">
+            <img src="https://i.pinimg.com/originals/33/57/14/3357143e431a1b917712881e693719ca.jpg" alt="Slide 2">
         </div>
-        <div class="carousel-item">
-            <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="...">
+        <div class="swiper-slide">
+            <img src="https://via.placeholder.com/1200x400" alt="Slide 3">
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination"></div>
+    <!-- Add Navigation -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
 </div>
 
 <div class="container mt-5">
@@ -75,7 +79,7 @@
         @foreach ($products as $product)
             <div class="col-sm-4 mb-3">
                 <div class="card h-100">
-                    <img src="{{ asset($product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $product->name }}</h5>
                         <p class="card-text">{{ $product->description }}</p>
@@ -95,23 +99,38 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A8fCgtSIsQltt+KY00Nv3G5r7bLeYem5vC3N0cpM5j7OcsgF1wtAby6pGFM90" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script>
-    document.getElementById('searchForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
 
-        var query = document.getElementById('searchInput').value.trim().toLowerCase();
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        var productList = document.getElementById('productList').getElementsByClassName('col-sm-4');
+            var query = document.getElementById('searchInput').value.trim().toLowerCase();
 
-        for (var i = 0; i < productList.length; i++) {
-            var productName = productList[i].getElementsByClassName('card-title')[0].innerText.trim().toLowerCase();
+            var productList = document.getElementById('productList').getElementsByClassName('col-sm-4');
 
-            if (productName.includes(query)) {
-                productList[i].style.display = '';
-            } else {
-                productList[i].style.display = 'none';
+            for (var i = 0; i < productList.length; i++) {
+                var productName = productList[i].getElementsByClassName('card-title')[0].innerText.trim().toLowerCase();
+
+                if (productName.includes(query)) {
+                    productList[i].style.display = '';
+                } else {
+                    productList[i].style.display = 'none';
+                }
             }
-        }
+        });
     });
 </script>
 </body>
