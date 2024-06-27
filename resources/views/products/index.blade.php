@@ -17,6 +17,12 @@
             height: 100%;
             object-fit: cover;
         }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            top: 35%;
+            transform: translateY(-45%);
+        }
     </style>
 </head>
 <body>
@@ -60,9 +66,6 @@
             <img src="https://via.placeholder.com/1200x400" alt="Slide 3">
         </div>
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-    <!-- Add Navigation -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
 </div>
