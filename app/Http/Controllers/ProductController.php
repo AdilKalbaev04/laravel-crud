@@ -26,6 +26,7 @@ class ProductController extends Controller
             'description' => 'required|string|max:1000',
             'price' => 'required|numeric',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rating' => 'nullable|numeric|min:0|max:5',
         ]);
 
         $imageName = time() . '_' . uniqid() . '.' . $request->image->extension();
@@ -38,6 +39,7 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->price = $request->price;
         $product->image = $imagePath;
+        $product->rating = $request->rating;
         $product->save();
 
         return redirect()->route('products.index')->with('success', 'Продукт добавлен');
@@ -60,6 +62,7 @@ class ProductController extends Controller
             'description' => 'required|string|max:1000',
             'price' => 'required|numeric',
             'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'rating' => 'nullable|numeric|min:0|max:5',
         ]);
 
         if ($request->hasFile('image')) {
@@ -75,6 +78,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->rating = $request->rating;
         $product->save();
 
         return redirect()->route('products.index')->with('success', 'Продукт обновлен');

@@ -31,6 +31,10 @@
                         <input type="text" class="form-control" id="price" name="price" required>
                     </div>
                     <div class="form-group">
+                        <label for="rating">Рейтинг (от 1 до 5)</label>
+                        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+                    </div>
+                    <div class="form-group">
                         <label for="image">Изображение</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>

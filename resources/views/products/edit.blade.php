@@ -1,4 +1,3 @@
-<!-- resources/views/products/edit.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +30,10 @@
                     <div class="form-group">
                         <label for="price">Цена</label>
                         <input type="text" class="form-control" id="price" name="price" value="{{ $product->price }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rating">Рейтинг (от 1 до 5)</label>
+                        <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" value="{{ $product->rating }}" required>
                     </div>
                     <div class="form-group">
                         <label for="image">Изображение</label>
