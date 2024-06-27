@@ -21,6 +21,21 @@
                 <div class="card-body">
                     <p class="card-text">{{ $product->description }}</p>
                     <p class="card-text">Цена: {{ $product->price }} руб.</p>
+                    <p class="card-text">Рейтинг: {{ $product->rating }}</p>
+                    <form action="{{ route('products.rate', $product->id) }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Ваш рейтинг:</label>
+                            <select name="rating" id="rating" class="form-select" required>
+                                <option value="1">1 звезда</option>
+                                <option value="2">2 звезды</option>
+                                <option value="3">3 звезды</option>
+                                <option value="4">4 звезды</option>
+                                <option value="5">5 звезд</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Оценить</button>
+                    </form>
                 </div>
                 <div class="card-footer">
                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-primary btn-sm">Редактировать</a>
@@ -33,5 +48,6 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76A8fCgtSIsQltt+KY00Nv3G5r7bLeYem5vC3N0cpM5j7OcsgF1wtAby6pGFM90" crossorigin="anonymous"></script>
 </body>
 </html>

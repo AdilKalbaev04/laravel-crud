@@ -16,4 +16,15 @@ class Product extends Model
         'image',
         'rating',
     ];
+
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+    public function updateAverageRating()
+    {
+        $this->rating = $this->ratings()->avg('rating');
+        $this->save();
+    }
 }

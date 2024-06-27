@@ -57,6 +57,9 @@
                     <a class="btn btn-success" href="{{ route('cart.index') }}">Корзина</a>
                 </li>
                 <li class="nav-item">
+                    <a class="btn btn-success" href="{{ url('/about') }}">О нас</a>
+                </li>
+                <li class="nav-item">
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="submit" class="btn btn-danger">Выйти</button>

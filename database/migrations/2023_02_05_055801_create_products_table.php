@@ -15,6 +15,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 8, 2);
             $table->string('image')->nullable();
             $table->decimal('rating', 2, 1)->nullable()->default(0);
+            $table->integer('rating_count')->default(0);
             $table->timestamps();
         });
     }
@@ -24,3 +25,4 @@ class CreateProductsTable extends Migration
         Schema::dropIfExists('products');
     }
 }
+

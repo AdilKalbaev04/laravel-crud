@@ -92,4 +92,22 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Продукт удален');
     }
+
+
+
+    public function rate(Request $request, Product $product)
+    {
+        $request->validate([
+            'rating' => 'required|numeric|min:1|max:5',
+        ]);
+
+        $rating = ProductRating::updateOrCreate(
+            ['product_id' => $product->id, 'user_id' => Auth::id()],
+            ['rating' => $request->rating]
+        );
+
+        $product->updateAverageRating();
+
+        return redirect()->route('products.show', $product->id)->with('success', 'Спасибо за ваш отзыв!');
+    }
 }
