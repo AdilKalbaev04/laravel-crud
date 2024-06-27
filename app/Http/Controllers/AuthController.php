@@ -56,15 +56,15 @@ class AuthController extends Controller
         return redirect()->route('products.index')->cookie('token', $token, 60*24*30);
     }
 
-
     public function logout(Request $request)
     {
         if ($request->user()) {
             $request->user()->tokens()->delete();
         }
 
-        return response()->json(['message' => 'Вы успешно вышли'], 200)->cookie('token', '', -1);
+        return response()->json(['message' => 'Вы успешно вышли'], 200)->cookie('token', '', -1)->cookie('laravel_session', '', -1);
     }
+
 
 }
 
