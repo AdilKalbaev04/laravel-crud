@@ -1,3 +1,4 @@
+<!-- resources/views/products/edit.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +17,7 @@
         <div class="row h-100 justify-content-center align-items-center">
             <div class="col-10 col-md-8 col-lg-6">
                 <h3>Редактировать продукт</h3>
-                <form action="{{ route('products.update', $product->id) }}" method="post">
+                <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
@@ -31,6 +32,15 @@
                         <label for="price">Цена</label>
                         <input type="text" class="form-control" id="price" name="price" value="{{ $product->price }}" required>
                     </div>
+                    <div class="form-group">
+                        <label for="image">Изображение</label>
+                        <input type="file" class="form-control" id="image" name="image" accept="image/*">
+                    </div>
+                    @if ($product->image)
+                        <div class="form-group mt-3">
+                            <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid" alt="{{ $product->name }}">
+                        </div>
+                    @endif
                     <br>
                     <button type="submit" class="btn btn-primary">Обновить продукт</button>
                 </form>

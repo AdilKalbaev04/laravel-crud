@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-
 
 class ProductController extends Controller
 {
@@ -31,10 +29,9 @@ class ProductController extends Controller
         ]);
 
         $imageName = time() . '_' . uniqid() . '.' . $request->image->extension();
-
         $request->image->storeAs('public/images', $imageName);
 
-        $imagePath = 'storage/images/' . $imageName;
+        $imagePath = 'images/' . $imageName;
 
         $product = new Product();
         $product->name = $request->name;
@@ -45,7 +42,6 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Продукт добавлен');
     }
-
 
     public function show(Product $product)
     {
@@ -70,7 +66,9 @@ class ProductController extends Controller
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
             }
-            $imagePath = $request->file('image')->store('images', 'public');
+            $imageName = time() . '_' . uniqid() . '.' . $request->image->extension();
+            $request->image->storeAs('public/images', $imageName);
+            $imagePath = 'images/' . $imageName;
             $product->image = $imagePath;
         }
 
@@ -90,6 +88,4 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Продукт удален');
     }
-
-
 }
