@@ -11,6 +11,9 @@
         <div class="container-fluid">
             <a class="navbar-brand h1" href="{{ route('products.index') }}">Магазин</a>
         </div>
+        <div >
+            <a class="navbar-brand h3" href="{{ route('products.index') }}">Назад</a>
+        </div>
     </nav>
     <div class="container h-100 mt-5">
         <div class="row h-100 justify-content-center align-items-center">
