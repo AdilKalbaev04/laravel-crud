@@ -10,4 +10,4 @@ class AboutController extends Controller
     {
         return view('about.about');
     }
-}
+} 
