@@ -6,6 +6,10 @@ use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
+
 
 URL::forceScheme('http');
 
@@ -34,5 +38,8 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::post('/pusher/auth', [AuthController::class, 'pusherAuth'])->middleware('auth:sanctum');
 
+Route::get('/chat', [ChatController::class, 'index'])->middleware('auth:sanctum');
+Route::post('/chat', [ChatController::class, 'sendMessage'])->middleware('auth:sanctum');
 

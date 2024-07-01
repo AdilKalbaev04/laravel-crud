@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Pusher\Pusher;
 
 class AuthController extends Controller
 {
@@ -63,6 +64,25 @@ class AuthController extends Controller
         }
 
         return response()->json(['message' => 'Вы успешно вышли'], 200)->cookie('token', '', -1)->cookie('laravel_session', '', -1);
+    }
+
+    public function pusherAuth(Request $request)
+    {
+        if (Auth::check()) {
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                [
+                    'cluster' => env('PUSHER_APP_CLUSTER'),
+                    'useTLS' => true,
+                ]
+            );
+
+            return $pusher->socket_auth($request->channel_name, $request->socket_id);
+        } else {
+            return response('Forbidden', 403);
+        }
     }
 
 

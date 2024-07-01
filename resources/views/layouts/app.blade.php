@@ -31,7 +31,7 @@
         .rating > span:hover ~ span:before {
             content: "\2605";
             position: absolute;
-            color: gold;
+            color: gold.
         }
     </style>
     @stack('styles')
@@ -54,7 +54,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/about') }}">О нас</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/chat') }}">Чат</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/register') }}">Регистрация</a>
                     </li>
